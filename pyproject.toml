@@ -1,0 +1,28 @@
+[project]
+name = "montpellier-bike-prediction"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "emese007", email = "emese.hofi@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "pandas>=2.3.3",
+    "prophet>=1.2.1",
+    "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
+    "supabase>=2.24.0",
+    "tqdm>=4.67.1",
+]
+
+[project.scripts]
+montpellier-bike-prediction = "montpellier_bike_prediction:main"
+
+[build-system]
+requires = ["uv_build>=0.8.18,<0.9.0"]
+build-backend = "uv_build"
+
+packages = ["montpellier_bike_prediction"]
+package-dir = {"" = "src"}
