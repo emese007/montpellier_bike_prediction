@@ -84,14 +84,15 @@ def reload_data_to_supabase():
     print("\nTruncating historical tables in Supabase...")
 
     # Tables historiques vélo & météo & forecast météo & compteurs
-    truncate_table("bike_hourly")
-    truncate_table("weather_hourly")
-    truncate_table("counters")
-    truncate_table("weather_forecast_hourly")
+    truncate_table("bike_hourly", "timestamp_utc", "1900-01-01T00:00:00+00")
+    truncate_table("weather_hourly", "timestamp_utc", "1900-01-01T00:00:00+00")
+
+    truncate_table("counters", "id", "")
+    truncate_table("weather_forecast_hourly", "timestamp_utc", "1900-01-01T00:00:00+00")
 
     # Jours fériés: on ne les vide QUE si on les a regénérés cette fois-ci
     if should_refresh_holidays():
-        truncate_table("holidays", "date")
+        truncate_table("holidays", "date", "1900-01-01T00:00:00+00")
         reload_holidays = True
     else:
         reload_holidays = False
@@ -122,8 +123,12 @@ def run_models():
     weather_forecast_hourly).
     """
     # On vide les anciennes prédictions pour n'avoir que celles de demain
-    truncate_table("bike_predictions_hourly_prophet")
-    truncate_table("bike_predictions_hourly_xgboost")
+    truncate_table(
+        "bike_predictions_hourly_prophet", "timestamp_utc", "1900-01-01T00:00:00+00"
+    )
+    truncate_table(
+        "bike_predictions_hourly_xgboost", "timestamp_utc", "1900-01-01T00:00:00+00"
+    )
 
     print("\nRunning Prophet pipeline (all counters)...")
     run_prophet_pipeline()

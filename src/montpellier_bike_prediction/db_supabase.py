@@ -42,18 +42,21 @@ def upsert_df(table: str, df: pd.DataFrame) -> dict[str, Any]:
     }
 
 
-def truncate_table(table: str) -> dict[str, Any]:
+def truncate_table(table: str, column: str, min_value: Any) -> dict[str, Any]:
     """
-    Vide complètement une table Supabase via l'API REST.
-    Équivaut à TRUNCATE TABLE, mais en utilisant DELETE sans condition.
+    Vide (quasi) complètement une table Supabase en utilisant un DELETE avec clause WHERE,
+    car PostgREST refuse les DELETE sans filtre.
 
-    Nécessite que les politiques RLS autorisent le delete pour ton rôle.
+    Exemple :
+      truncate_table("bike_hourly", "timestamp_utc", "1900-01-01T00:00:00+00")
+      truncate_table("counters", "id", "")
     """
     client = get_supabase_client()
-    print(f"Truncating table '{table}'...")
+    print(f"Truncating table '{table}' on {column} >= {min_value!r} ...")
 
     try:
-        resp = client.table(table).delete().execute()
+        # Utilise une condition large qui matche toutes les lignes réalistes
+        resp = client.table(table).delete().gte(column, min_value).execute()
     except Exception as e:
         print(f"Failed to truncate {table}: {e}")
         return {"status": "error", "table": table, "error": str(e)}
@@ -61,6 +64,6 @@ def truncate_table(table: str) -> dict[str, Any]:
     return {
         "status": "ok",
         "table": table,
-        # selon la version, resp.count peut être None, ce n'est pas grave
         "deleted_count": getattr(resp, "count", "unknown"),
     }
+
