@@ -66,8 +66,8 @@ def keep_tomorrow_utc_midnight_to_midnight(df: pd.DataFrame) -> pd.DataFrame:
     now_utc = datetime.now(timezone.utc)
     tomorrow = (now_utc + timedelta(days=1)).date()
 
-    print(f"📅 Now (UTC)         : {now_utc}")
-    print(f"📅 Tomorrow (UTC day): {tomorrow}")
+    print(f"Now (UTC)         : {now_utc}")
+    print(f"Tomorrow (UTC day): {tomorrow}")
 
     # Build the 24 expected timestamps for tomorrow, in UTC
     hours = pd.date_range(
@@ -161,7 +161,7 @@ def main():
     # 3) Prepare for Supabase
     df_for_supabase = prepare_for_supabase(df_tomorrow)
 
-    print(f"\n📦 Prepared for Supabase ({len(df_for_supabase)} rows):")
+    print(f"\nPrepared for Supabase ({len(df_for_supabase)} rows):")
     print(df_for_supabase.head())
 
     # 4) Upload to Supabase

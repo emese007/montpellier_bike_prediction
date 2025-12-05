@@ -96,6 +96,9 @@ def run_bike_etl_for_selected(
     df.to_csv(processed_path, index=False)
     print(f"✅ Données vélo traitées sauvegardées dans {processed_path}")
 
+def main():
+    """Entry point used by the pipeline and when run as a script."""
+    run_bike_etl_for_selected()
 
 if __name__ == "__main__":
-    run_bike_etl_for_selected()
+    main()

@@ -48,5 +48,10 @@ def run_weather_hourly_etl(
     print(f"Météo horaire traitée sauvegardée dans {processed_path}")
 
 
-if __name__ == "__main__":
+def main():
+    """Entry point used by the pipeline and when run as a script."""
     run_weather_hourly_etl()
+
+if __name__ == "__main__":
+    main()
+

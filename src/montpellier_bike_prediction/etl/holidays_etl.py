@@ -31,5 +31,10 @@ def run_holidays_etl(start_year: int = 2023, zone: str = "metropole") -> None:
     print(f"✅ Jours fériés traités sauvegardés dans {processed_path}")
 
 
-if __name__ == "__main__":
+def main():
+    """Entry point used by the pipeline and when run as a script."""
     run_holidays_etl()
+
+if __name__ == "__main__":
+    main()
+    

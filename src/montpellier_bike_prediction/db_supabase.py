@@ -40,3 +40,27 @@ def upsert_df(table: str, df: pd.DataFrame) -> dict[str, Any]:
         "count": len(records),
         "response": resp.data,
     }
+
+
+def truncate_table(table: str) -> dict[str, Any]:
+    """
+    Vide complètement une table Supabase via l'API REST.
+    Équivaut à TRUNCATE TABLE, mais en utilisant DELETE sans condition.
+
+    Nécessite que les politiques RLS autorisent le delete pour ton rôle.
+    """
+    client = get_supabase_client()
+    print(f"Truncating table '{table}'...")
+
+    try:
+        resp = client.table(table).delete().execute()
+    except Exception as e:
+        print(f"Failed to truncate {table}: {e}")
+        return {"status": "error", "table": table, "error": str(e)}
+
+    return {
+        "status": "ok",
+        "table": table,
+        # selon la version, resp.count peut être None, ce n'est pas grave
+        "deleted_count": getattr(resp, "count", "unknown"),
+    }
