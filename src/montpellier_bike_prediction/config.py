@@ -17,7 +17,7 @@ SELECTED_COUNTERS = [
     "urn:ngsi-ld:EcoCounter:X2H22104775",
     "urn:ngsi-ld:EcoCounter:X2H22104776",
     "urn:ngsi-ld:EcoCounter:X2H22104773",
-    "urn:ngsi-ld:EcoCounter:Y2H20042635",
+    "urn:ngsi-ld:EcoCounter:X2H20042635",
     "urn:ngsi-ld:EcoCounter:X2H22104769",
     "urn:ngsi-ld:EcoCounter:X2H22104766",
 ]

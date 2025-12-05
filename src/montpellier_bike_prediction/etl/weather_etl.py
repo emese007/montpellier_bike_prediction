@@ -34,18 +34,18 @@ def run_weather_hourly_etl(
         today = dt.date.today().isoformat()
         end_date = today
 
-    print(f"🌦 ETL météo horaire {start_date} → {end_date}")
+    print(f"ETL météo horaire {start_date} → {end_date}")
     client = WeatherAPIClient()
     df = client.fetch_hourly_history(lat, lon, start_date, end_date)
 
     raw_path = DATA_RAW_DIR / "weather_hourly_raw.csv"
     df.to_csv(raw_path, index=False)
-    print(f"✅ Météo horaire brute sauvegardée dans {raw_path}")
+    print(f"Météo horaire brute sauvegardée dans {raw_path}")
 
     # Ici tu pourras rajouter des colonnes, agrégations journalières, etc.
     processed_path = DATA_PROCESSED_DIR / "weather_hourly_processed.csv"
     df.to_csv(processed_path, index=False)
-    print(f"✅ Météo horaire traitée sauvegardée dans {processed_path}")
+    print(f"Météo horaire traitée sauvegardée dans {processed_path}")
 
 
 if __name__ == "__main__":

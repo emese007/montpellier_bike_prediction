@@ -36,9 +36,6 @@ class WeatherAPIClient:
         - relative_humidity_2m
         - precipitation
         - wind_speed_10m
-        - wind_gusts_10m
-        - cloudcover
-        - shortwave_radiation
         """
         params = {
             "latitude": lat,
@@ -51,9 +48,6 @@ class WeatherAPIClient:
                     "relative_humidity_2m",
                     "precipitation",
                     "wind_speed_10m",
-                    "wind_gusts_10m",
-                    "cloudcover",
-                    "shortwave_radiation",
                 ]
             ),
             "timezone": "UTC",
